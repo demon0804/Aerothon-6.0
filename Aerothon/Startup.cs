@@ -37,6 +37,7 @@ namespace IMDB
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IPasswordHelper, PasswordHelper>();
+            services.AddSingleton<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

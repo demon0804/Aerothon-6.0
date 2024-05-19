@@ -46,5 +46,16 @@ namespace Aerothon.Repository
 
             return _users.Where(a => a.UserName == username).FirstOrDefault();
         }
+
+        /// <summary>
+        /// Adds the specified user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
+        public int Add(User user)
+        {
+            _users.Add(user);
+            return _users.Count();
+        }
     }
 }
