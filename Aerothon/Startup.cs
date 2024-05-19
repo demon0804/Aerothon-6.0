@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Aerothon.Helper;
+using Aerothon.Helper.Interfaces;
+using Aerothon.Repository;
+using Aerothon.Repository.Interfaces;
+using Aerothon.Services;
+using Aerothon.Services.Interfaces;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +33,10 @@ namespace IMDB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddSingleton<IAuthenticationService, AuthenticationService>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IPasswordHelper, PasswordHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
