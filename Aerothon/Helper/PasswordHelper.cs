@@ -10,6 +10,10 @@ namespace Aerothon.Helper
         private const int KeySize = 32;
         private const int Iterations = 10000;
 
+        public PasswordHelper()
+        {
+        }
+
         /// <summary>
         /// Hashes the password.
         /// </summary>
