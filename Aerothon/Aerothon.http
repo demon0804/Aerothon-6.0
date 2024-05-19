@@ -1,0 +1,6 @@
+@Aerothon_HostAddress = http://localhost:5075
+
+GET {{Aerothon_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
