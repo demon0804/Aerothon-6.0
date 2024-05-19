@@ -48,7 +48,7 @@ namespace Aerothon.Services
             }
 
             ValidateUser(loginRequest);
-            var user = _userRepository.GetUser(loginRequest.UserName);
+            var user = _userRepository.Get(loginRequest.UserName);
             if(user == null)
             {
                 throw new Exception($"User with user name {loginRequest.UserName} does not exists");

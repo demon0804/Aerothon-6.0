@@ -32,6 +32,11 @@ namespace Aerothon.Controllers
             _authenticationService = authenticationService;
         }
 
+        /// <summary>
+        /// Logins the specified login request.
+        /// </summary>
+        /// <param name="loginRequest">The login request.</param>
+        /// <returns>User</returns>
         [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginRequest loginRequest)
         {

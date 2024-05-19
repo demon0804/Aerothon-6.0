@@ -37,7 +37,7 @@ namespace Aerothon.Repository
         /// </summary>
         /// <typeparam name="String">The type of the tring.</typeparam>
         /// <returns>User</returns>
-        public User GetUser(string username)
+        public User Get(string username)
         {
             if (string.IsNullOrEmpty(username))
             {
