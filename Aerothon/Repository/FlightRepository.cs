@@ -15,14 +15,14 @@ namespace Aerothon.Repository
           new Flight
         {
           Id = "12345",
-          LastPosition = new Waypoint { Lattitude = 40.7128, Longitude = -74.0060 ,Weather= true},
+          LastPosition = new Waypoint { Lattitude = 40.7128f, Longitude = -74.0060f ,Weather= true},
           Source = "JFK",
           Destination = "LAX"
         },
        new Flight
        {
         Id = "67890",
-        LastPosition = new Waypoint { Lattitude = 34.0522, Longitude = -118.2437 ,Weather=true},
+        LastPosition = new Waypoint { Lattitude = 34.0522f, Longitude = -118.2437f ,Weather=true},
         Source = "LAX",
         Destination = "JFK"
        }
@@ -35,8 +35,8 @@ namespace Aerothon.Repository
         FlightId = "12345",
         waypoints = new List<Waypoint>
         {
-            new Waypoint { Lattitude = 40.7128, Longitude = -74.0060, Weather = true },
-            new Waypoint { Lattitude = 40.7128, Longitude = -74.0060, Weather = true },
+            new Waypoint { Lattitude = 40.7128f, Longitude = -74.0060f, Weather = true },
+            new Waypoint { Lattitude = 40.7128f, Longitude = -74.0060f, Weather = true },
 
         }
     }
