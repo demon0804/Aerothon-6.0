@@ -1,4 +1,6 @@
-﻿using Aerothon.Models.Response;
+﻿using Aerothon.Helper.Interfaces;
+using Aerothon.Models.Entities;
+using Aerothon.Models.Response;
 using Aerothon.Repository.Interfaces;
 using Aerothon.Services.Interfaces;
 
@@ -8,11 +10,29 @@ namespace Aerothon.Services
     {
         private readonly IFlightRepository _flightrepository;
 
-        public FlightService(IFlightRepository flightrepository)
+        /// <summary>
+        /// The graph helper
+        /// </summary>
+        private readonly IGraphHelper _graphHelper;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FlightService"/> class.
+        /// </summary>
+        /// <param name="flightrepository">The flightrepository.</param>
+        /// <param name="graphHelper">The graph helper.</param>
+        public FlightService(
+            IFlightRepository flightrepository,
+            IGraphHelper graphHelper)
         {
             _flightrepository = flightrepository;
+            _graphHelper = graphHelper;
         }
 
+        /// <summary>
+        /// Get flight details by id.
+        /// </summary>
+        /// <param name="flightId"></param>
+        /// <returns>flight response</returns>
         public FlightResponse getFlightDetailsById(string flightId)
         {
             var flightDetails = _flightrepository.getFlightDetailsById(flightId);
@@ -39,6 +59,11 @@ namespace Aerothon.Services
             return flightresponse;
         }
 
+        /// <summary>
+        /// Get all way points of flight
+        /// </summary>
+        /// <param name="flightId"></param>
+        /// <returns>list of way points</returns>
         public List<WaypointResponse> getAllWaypointsOfFlight(string flightId)
         {
             var waypoints = _flightrepository.getAllWaypointsOfFlight(flightId);
@@ -58,6 +83,18 @@ namespace Aerothon.Services
                 .ToList();
 
             return waypointResponses;
+        }
+
+        /// <summary>
+        /// Get alternate paths
+        /// </summary>00
+        /// <param name="currentPosition"></param>
+        /// <param name="destination"></param>
+        /// <returns>list of alternate paths.</returns>
+        public List<List<Waypoint>> GetAlternatePaths(Waypoint currentPosition, Waypoint destination)
+        {
+            var alternatePaths = _graphHelper.FindKShortestPaths(currentPosition, destination, 3);
+            return alternatePaths;
         }
     }
 }
