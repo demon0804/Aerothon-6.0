@@ -1,6 +1,4 @@
-﻿using Aerothon.Models.Response;
-
-namespace Aerothon.Models.Entities
+﻿namespace Aerothon.Models.Entities
 {
     public class Flight
     {
@@ -8,6 +6,5 @@ namespace Aerothon.Models.Entities
         public Waypoint LastPosition { get; set; }
         public string Source { get; set; }
         public string Destination { get; set; }
-
     }
 }

@@ -1,6 +1,4 @@
-﻿using Aerothon.Models.Entities;
-
-namespace Aerothon.Models.Response
+﻿namespace Aerothon.Models.Response
 {
     public class WayPointsTrackResponse
     {

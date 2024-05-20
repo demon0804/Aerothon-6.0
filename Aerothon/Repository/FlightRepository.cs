@@ -1,47 +1,64 @@
 ﻿using Aerothon.Models.Entities;
-using Aerothon.Models.Response;
 using Aerothon.Repository.Interfaces;
 
 namespace Aerothon.Repository
 {
     public class FlightRepository : IFlightRepository
     {
-        public FlightRepository()
-        {
+        public FlightRepository() { }
 
-        }
-       private readonly List<Flight> flightResponses = new List<Flight>
-        {
-          new Flight
-        {
-          Id = "12345",
-          LastPosition = new Waypoint { Lattitude = 40.7128f, Longitude = -74.0060f ,Weather= true},
-          Source = "JFK",
-          Destination = "LAX"
-        },
-       new Flight
-       {
-        Id = "67890",
-        LastPosition = new Waypoint { Lattitude = 34.0522f, Longitude = -118.2437f ,Weather=true},
-        Source = "LAX",
-        Destination = "JFK"
-       }
-     };
+        private readonly List<Flight> flightResponses =
+            new()
+            {
+                new()
+                {
+                    Id = "12345",
+                    LastPosition = new Waypoint
+                    {
+                        Lattitude = 40.7128f,
+                        Longitude = -74.0060f,
+                        Weather = "Yes"
+                    },
+                    Source = "JFK",
+                    Destination = "LAX"
+                },
+                new()
+                {
+                    Id = "67890",
+                    LastPosition = new Waypoint
+                    {
+                        Lattitude = 34.0522f,
+                        Longitude = -118.2437f,
+                        Weather = "Yes"
+                    },
+                    Source = "LAX",
+                    Destination = "JFK"
+                }
+            };
 
- private readonly List<WayPointsTrack> waypointsCollection = new List<WayPointsTrack>
-{
-    new WayPointsTrack
-    {
-        FlightId = "12345",
-        waypoints = new List<Waypoint>
-        {
-            new Waypoint { Lattitude = 40.7128f, Longitude = -74.0060f, Weather = true },
-            new Waypoint { Lattitude = 40.7128f, Longitude = -74.0060f, Weather = true },
-
-        }
-    }
-};
-
+        private readonly List<WayPointsTrack> waypointsCollection =
+            new()
+            {
+                new WayPointsTrack
+                {
+                    FlightId = "12345",
+                    waypoints = new List<Waypoint>
+                    {
+                        new()
+                        {
+                            Lattitude = 40.7128f,
+                            Longitude = -74.0060f,
+                            Weather = "Yes"
+                        },
+                        new()
+                        {
+                            Lattitude = 40.7128f,
+                            Longitude = -74.0060f,
+                            Weather = "Yes"
+                        },
+                    }
+                }
+            };
 
         public Flight getFlightDetailsById(string flightId)
         {
@@ -53,6 +70,5 @@ namespace Aerothon.Repository
             var waypointsTrack = waypointsCollection.FirstOrDefault(f => f.FlightId == flightId);
             return waypointsTrack.waypoints.ToList();
         }
-
     }
 }

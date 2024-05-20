@@ -1,6 +1,4 @@
-﻿using Aerothon.Models.Response;
-
-namespace Aerothon.Models.Request
+﻿namespace Aerothon.Models.Request
 {
     public class FlightRequest
     {
@@ -8,6 +6,5 @@ namespace Aerothon.Models.Request
         public WayPointRequest LastPosition { get; set; }
         public string Source { get; set; }
         public string Destination { get; set; }
-
     }
 }
