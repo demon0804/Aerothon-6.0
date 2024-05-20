@@ -17,6 +17,11 @@ namespace Aerothon.Services
         {
             var flightDetails = _flightrepository.getFlightDetailsById(flightId);
 
+            if (flightDetails == null)
+            {
+                return new FlightResponse();
+            }
+
             var lastPositionR = new WaypointResponse();
             lastPositionR.Lattitude = flightDetails.LastPosition.Lattitude;
             lastPositionR.Longitude = flightDetails.LastPosition.Longitude;
@@ -37,6 +42,11 @@ namespace Aerothon.Services
         public List<WaypointResponse> getAllWaypointsOfFlight(string flightId)
         {
             var waypoints = _flightrepository.getAllWaypointsOfFlight(flightId);
+
+            if (waypoints == null)
+            {
+                return new List<WaypointResponse>();
+            }
 
             List<WaypointResponse> waypointResponses = waypoints
                 .Select(w => new WaypointResponse

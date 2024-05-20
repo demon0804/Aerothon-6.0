@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace Aerothon.Controllers
 {
     [ApiController]
-    public class FlightController : ControllerBase
+    public class FlightsController : ControllerBase
     {
         private readonly IFlightService _flightservice;
 
-        public FlightController(IFlightService flightservice)
+        public FlightsController(IFlightService flightservice)
         {
             _flightservice = flightservice;
         }
