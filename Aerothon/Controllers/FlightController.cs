@@ -12,17 +12,17 @@ namespace Aerothon.Controllers
         {
             _flightservice = flightservice;
         }
-        [HttpGet("flights/{flightId}")]
-        public IActionResult getFilghtDetailsById([FromRoute]string flightId)
+        [HttpGet("flights/{id}")]
+        public IActionResult getFilghtDetailsById([FromRoute]string id)
         {
-           var flightDetails= _flightservice.getFilghtDetailsById(flightId);
+           var flightDetails= _flightservice.getFlightDetailsById(id);
             return Ok(flightDetails);
         }
 
-        [HttpGet("flights/{flightId}/track")]
-        public IActionResult getAllWaypointsOfFlight(string flightId)
+        [HttpGet("flights/{id}/track")]
+        public IActionResult getAllWaypointsOfFlight(string id)
         {
-            var wayPoints = _flightservice.getAllWaypointsOfFlight(flightId);
+            var wayPoints = _flightservice.getAllWaypointsOfFlight(id);
             return Ok(wayPoints);
         }
     }

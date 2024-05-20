@@ -2,8 +2,8 @@
 {
     public class Waypoint
     {
-        public double lattitude { get; set; }
-        public double longitude { get; set; }
+        public double Lattitude { get; set; }
+        public double Longitude { get; set; }
         public bool Weather { get; set; }
     }
 }

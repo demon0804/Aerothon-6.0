@@ -5,7 +5,7 @@ namespace Aerothon.Services.Interfaces
 {
     public interface IFlightService
     {
-        FlightResponse getFilghtDetailsById(string flightId);
+        FlightResponse getFlightDetailsById(string flightId);
         List<WaypointResponse> getAllWaypointsOfFlight(string flightId);
     }
 }

@@ -6,19 +6,23 @@ namespace Aerothon.Repository
 {
     public class FlightRepository : IFlightRepository
     {
+        public FlightRepository()
+        {
+
+        }
        private readonly List<Flight> flightResponses = new List<Flight>
         {
           new Flight
         {
-          FlightID = "12345",
-          LastPosition = new Waypoint { lattitude = 40.7128, longitude = -74.0060 ,Weather= true},
+          Id = "12345",
+          LastPosition = new Waypoint { Lattitude = 40.7128, Longitude = -74.0060 ,Weather= true},
           Source = "JFK",
           Destination = "LAX"
         },
        new Flight
        {
-        FlightID = "67890",
-        LastPosition = new Waypoint { lattitude = 34.0522, longitude = -118.2437 ,Weather=true},
+        Id = "67890",
+        LastPosition = new Waypoint { Lattitude = 34.0522, Longitude = -118.2437 ,Weather=true},
         Source = "LAX",
         Destination = "JFK"
        }
@@ -28,25 +32,25 @@ namespace Aerothon.Repository
 {
     new WayPointsTrack
     {
-        flightId = "12345",
+        FlightId = "12345",
         waypoints = new List<Waypoint>
         {
-            new Waypoint { lattitude = 40.7128, longitude = -74.0060, Weather = true },
-            new Waypoint { lattitude = 40.7128, longitude = -74.0060, Weather = true },
+            new Waypoint { Lattitude = 40.7128, Longitude = -74.0060, Weather = true },
+            new Waypoint { Lattitude = 40.7128, Longitude = -74.0060, Weather = true },
 
         }
     }
 };
 
 
-        public Flight getFilghtDetailsById(string flightId)
+        public Flight getFlightDetailsById(string flightId)
         {
-            return flightResponses.FirstOrDefault(f => f.FlightID == flightId);
+            return flightResponses.FirstOrDefault(f => f.Id == flightId);
         }
 
         public List<Waypoint> getAllWaypointsOfFlight(string flightId)
         {
-            var waypointsTrack = waypointsCollection.FirstOrDefault(f => f.flightId == flightId);
+            var waypointsTrack = waypointsCollection.FirstOrDefault(f => f.FlightId == flightId);
             return waypointsTrack.waypoints.ToList();
         }
 

@@ -16,19 +16,19 @@ namespace Aerothon.Services
 
        
 
-        public FlightResponse getFilghtDetailsById(string flightId)
+        public FlightResponse getFlightDetailsById(string flightId)
         {
-            var flightDetails= _flightrepository.getFilghtDetailsById(flightId);
+            var flightDetails= _flightrepository.getFlightDetailsById(flightId);
 
             var lastPositionR = new WaypointResponse();
-            lastPositionR.lattitude = flightDetails.LastPosition.lattitude;
-            lastPositionR.longitude = flightDetails.LastPosition.longitude;
+            lastPositionR.Lattitude = flightDetails.LastPosition.Lattitude;
+            lastPositionR.Longitude = flightDetails.LastPosition.Longitude;
             lastPositionR.Weather = flightDetails.LastPosition.Weather;
 
 
             FlightResponse flightresponse = new FlightResponse
             {
-               FlightID=flightDetails.FlightID,
+               Id=flightDetails.Id,
                LastPosition=lastPositionR,              
                Source=flightDetails.Source,
                Destination=flightDetails.Destination
@@ -44,8 +44,8 @@ namespace Aerothon.Services
 
             List<WaypointResponse> waypointResponses = waypoints.Select(w => new WaypointResponse
             {
-                lattitude = w.lattitude,
-                longitude = w.longitude,
+                Lattitude = w.Lattitude,
+                Longitude = w.Longitude,
                 Weather = w.Weather
             }).ToList();
 

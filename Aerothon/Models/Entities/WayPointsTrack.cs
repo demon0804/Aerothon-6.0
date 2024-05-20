@@ -2,7 +2,7 @@
 {
     public class WayPointsTrack
     {
-        public string flightId { get; set; }
+        public string FlightId { get; set; }
         public List<Waypoint> waypoints { get; set; }
     }
 }
