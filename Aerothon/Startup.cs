@@ -4,7 +4,6 @@ using Aerothon.Repository;
 using Aerothon.Repository.Interfaces;
 using Aerothon.Services;
 using Aerothon.Services.Interfaces;
-using Microsoft.ML.OnnxRuntime;
 using Microsoft.OpenApi.Models;
 
 namespace IMDB
@@ -26,12 +25,8 @@ namespace IMDB
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WeatherApi2._0", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AerothonWebApp", Version = "v1" });
             });
-
-            services.AddSingleton<InferenceSession>(
-                new InferenceSession("MLModel/weather_safety_model.onnx")
-            );
 
             services.AddSingleton<IFlightRepository, FlightRepository>();
             services.AddSingleton<IFlightService, FlightService>();
@@ -51,7 +46,7 @@ namespace IMDB
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "WeatherApi2._0 v1")
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "AerothonWebApp v1")
                 );
             }
 
