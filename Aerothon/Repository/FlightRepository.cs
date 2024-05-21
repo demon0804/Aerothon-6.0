@@ -5,15 +5,30 @@ using Newtonsoft.Json;
 
 namespace Aerothon.Repository
 {
+    /// <summary>
+    /// FlightRepository
+    /// </summary>
+    /// <seealso cref="Aerothon.Repository.Interfaces.IFlightRepository" />
     public class FlightRepository : IFlightRepository
     {
+        /// <summary>
+        /// The weather helper
+        /// </summary>
         private readonly IWeatherHelper _weatherHelper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FlightRepository"/> class.
+        /// </summary>
+        /// <param name="weatherHelper">The weather helper.</param>
         public FlightRepository(IWeatherHelper weatherHelper)
         {
             _weatherHelper = weatherHelper;
         }
 
+        /// <summary>
+        /// The waypoints collection (static list)
+        /// TODO: Implement this using API
+        /// </summary>
         private readonly List<WayPointsTrack> waypointsCollection =
             new()
             {
@@ -28,6 +43,11 @@ namespace Aerothon.Repository
                 }
             };
 
+        /// <summary>
+        /// Gets the flight details by iata.
+        /// </summary>
+        /// <param name="flightIata">The flight iata.</param>
+        /// <returns></returns>
         public async Task<Flight> GetFlightDetailsByIata(string flightIata)
         {
             string apiKey = "08b1e479905fc25386c758fda85cdcc4";
@@ -64,6 +84,11 @@ namespace Aerothon.Repository
             return flightDetails;
         }
 
+        /// <summary>
+        /// Gets all waypoints of flight.
+        /// </summary>
+        /// <param name="flightIata">The flight iata.</param>
+        /// <returns></returns>
         public async Task<List<Waypoint>> GetAllWaypointsOfFlight(string flightIata)
         {
             var waypointsTrack = waypointsCollection.FirstOrDefault(f =>
