@@ -1,4 +1,5 @@
-﻿using Aerothon.Models.Entities;
+﻿using Aerothon.Helper.Interfaces;
+using Aerothon.Models.Entities;
 using Aerothon.Repository.Interfaces;
 using Newtonsoft.Json;
 
@@ -6,7 +7,12 @@ namespace Aerothon.Repository
 {
     public class FlightRepository : IFlightRepository
     {
-        public FlightRepository() { }
+        private readonly IWeatherHelper _weatherHelper;
+
+        public FlightRepository(IWeatherHelper weatherHelper)
+        {
+            _weatherHelper = weatherHelper;
+        }
 
         private readonly List<WayPointsTrack> waypointsCollection =
             new()
@@ -16,18 +22,8 @@ namespace Aerothon.Repository
                     FlightIata = "LY4215",
                     Waypoints = new List<Waypoint>
                     {
-                        new()
-                        {
-                            Latitude = 40.7128f,
-                            Longitude = -74.0060f,
-                            Weather = "Yes"
-                        },
-                        new()
-                        {
-                            Latitude = 40.7128f,
-                            Longitude = -74.0060f,
-                            Weather = "Yes"
-                        },
+                        new() { Latitude = 40.7128f, Longitude = -74.0060f, },
+                        new() { Latitude = 40.7128f, Longitude = -74.0060f, },
                     }
                 }
             };
@@ -39,46 +35,53 @@ namespace Aerothon.Repository
                 $"http://api.aviationstack.com/v1/flights?access_key={apiKey}&flight_iata={flightIata}&flight_status=active";
             var flightDetails = new Flight();
 
-            try
-            {
-                HttpClient client = new();
-                HttpResponseMessage response = await client.GetAsync(apiUrl);
+            HttpClient client = new();
+            HttpResponseMessage response = await client.GetAsync(apiUrl);
 
-                if (response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
+            {
+                string responseData = await response.Content.ReadAsStringAsync();
+                dynamic responseJson = JsonConvert.DeserializeObject(responseData);
+
+                Console.WriteLine("Parsed JSON: " + responseJson);
+
+                flightDetails.Id = responseJson.data[0].flight.iata;
+                if (responseJson.data[0].live != null)
                 {
-                    string responseData = await response.Content.ReadAsStringAsync();
-                    dynamic responseJson = JsonConvert.DeserializeObject(responseData);
-
-                    Console.WriteLine("Parsed JSON: " + responseJson);
-
-                    flightDetails.Id = responseJson.data[0].flight.iata;
-                    if (responseJson.data[0].live != null)
+                    flightDetails.LastPosition = new Waypoint
                     {
-                        flightDetails.LastPosition = new Waypoint
-                        {
-                            Latitude = responseJson.data[0].live.latitude,
-                            Longitude = responseJson.data[0].live.longitude,
-                            Weather = responseJson.data[0].live.weather ?? "Unknown"
-                        };
-                    }
-                    flightDetails.Source = responseJson.data[0].departure.iata;
-                    flightDetails.Destination = responseJson.data[0].arrival.iata;
+                        Latitude = responseJson.data[0].live.latitude,
+                        Longitude = responseJson.data[0].live.longitude,
+                        Weather = await _weatherHelper.CalculateScore(
+                            responseJson.data[0].live.latitude,
+                            responseJson.data[0].live.longitude
+                        )
+                    };
                 }
-                return flightDetails;
+                flightDetails.Source = responseJson.data[0].departure.iata;
+                flightDetails.Destination = responseJson.data[0].arrival.iata;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
+            return flightDetails;
         }
 
-        public List<Waypoint> GetAllWaypointsOfFlight(string flightIata)
+        public async Task<List<Waypoint>> GetAllWaypointsOfFlight(string flightIata)
         {
             var waypointsTrack = waypointsCollection.FirstOrDefault(f =>
                 f.FlightIata == flightIata
             );
-            return waypointsTrack.Waypoints.ToList();
+            if (waypointsTrack == null)
+            {
+                return new List<Waypoint>();
+            }
+            var result = waypointsTrack.Waypoints.ToList();
+            for (int i = 0; i < result.Count; i++)
+            {
+                result[i].Weather = await _weatherHelper.CalculateScore(
+                    result[i].Latitude,
+                    result[i].Longitude
+                );
+            }
+            return result;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace WeatherApi2._0.Model
+﻿namespace Aerothon.Models.Entities
 {
     public class WeatherParams
     {

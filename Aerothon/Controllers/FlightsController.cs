@@ -21,9 +21,9 @@ namespace Aerothon.Controllers
         }
 
         [HttpGet("flights/{id}/track")]
-        public IActionResult GetAllWaypointsOfFlight(string id)
+        public async Task<IActionResult> GetAllWaypointsOfFlight(string id)
         {
-            var wayPoints = _flightservice.GetAllWaypointsOfFlight(id);
+            var wayPoints = await _flightservice.GetAllWaypointsOfFlight(id);
             return Ok(wayPoints);
         }
     }

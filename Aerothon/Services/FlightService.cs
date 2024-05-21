@@ -1,4 +1,5 @@
-﻿using Aerothon.Models.Response;
+﻿using Aerothon.Helper.Interfaces;
+using Aerothon.Models.Response;
 using Aerothon.Repository.Interfaces;
 using Aerothon.Services.Interfaces;
 
@@ -42,9 +43,9 @@ namespace Aerothon.Services
             return flightresponse;
         }
 
-        public List<WaypointResponse> GetAllWaypointsOfFlight(string flightIata)
+        public async Task<List<WaypointResponse>> GetAllWaypointsOfFlight(string flightIata)
         {
-            var waypoints = _flightrepository.GetAllWaypointsOfFlight(flightIata);
+            var waypoints = await _flightrepository.GetAllWaypointsOfFlight(flightIata);
 
             if (waypoints == null)
             {
