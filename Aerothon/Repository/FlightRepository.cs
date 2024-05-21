@@ -1,5 +1,6 @@
 ﻿using Aerothon.Models.Entities;
 using Aerothon.Repository.Interfaces;
+using Newtonsoft.Json;
 
 namespace Aerothon.Repository
 {
@@ -7,52 +8,23 @@ namespace Aerothon.Repository
     {
         public FlightRepository() { }
 
-        private readonly List<Flight> flightResponses =
-            new()
-            {
-                new()
-                {
-                    Id = "12345",
-                    LastPosition = new Waypoint
-                    {
-                        Lattitude = 40.7128f,
-                        Longitude = -74.0060f,
-                        Weather = "Yes"
-                    },
-                    Source = "JFK",
-                    Destination = "LAX"
-                },
-                new()
-                {
-                    Id = "67890",
-                    LastPosition = new Waypoint
-                    {
-                        Lattitude = 34.0522f,
-                        Longitude = -118.2437f,
-                        Weather = "Yes"
-                    },
-                    Source = "LAX",
-                    Destination = "JFK"
-                }
-            };
-
         private readonly List<WayPointsTrack> waypointsCollection =
             new()
             {
                 new WayPointsTrack
                 {
-                    FlightId = "12345",
-                    waypoints = new List<Waypoint>
+                    FlightIata = "LY4215",
+                    Waypoints = new List<Waypoint>
                     {
                         new()
                         {
-                            Lattitude = 40.7128f,
+                            Latitude = 40.7128f,
                             Longitude = -74.0060f,
                             Weather = "Yes"
                         },
                         new()
                         {
-                            Lattitude = 40.7128f,
+                            Latitude = 40.7128f,
                             Longitude = -74.0060f,
                             Weather = "Yes"
                         },
@@ -60,15 +32,53 @@ namespace Aerothon.Repository
                 }
             };
 
-        public Flight getFlightDetailsById(string flightId)
+        public async Task<Flight> GetFlightDetailsByIata(string flightIata)
         {
-            return flightResponses.FirstOrDefault(f => f.Id == flightId);
+            string apiKey = "08b1e479905fc25386c758fda85cdcc4";
+            string apiUrl =
+                $"http://api.aviationstack.com/v1/flights?access_key={apiKey}&flight_iata={flightIata}&flight_status=active";
+            var flightDetails = new Flight();
+
+            try
+            {
+                HttpClient client = new();
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseData = await response.Content.ReadAsStringAsync();
+                    dynamic responseJson = JsonConvert.DeserializeObject(responseData);
+
+                    Console.WriteLine("Parsed JSON: " + responseJson);
+
+                    flightDetails.Id = responseJson.data[0].flight.iata;
+                    if (responseJson.data[0].live != null)
+                    {
+                        flightDetails.LastPosition = new Waypoint
+                        {
+                            Latitude = responseJson.data[0].live.latitude,
+                            Longitude = responseJson.data[0].live.longitude,
+                            Weather = responseJson.data[0].live.weather ?? "Unknown"
+                        };
+                    }
+                    flightDetails.Source = responseJson.data[0].departure.iata;
+                    flightDetails.Destination = responseJson.data[0].arrival.iata;
+                }
+                return flightDetails;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
-        public List<Waypoint> getAllWaypointsOfFlight(string flightId)
+        public List<Waypoint> GetAllWaypointsOfFlight(string flightIata)
         {
-            var waypointsTrack = waypointsCollection.FirstOrDefault(f => f.FlightId == flightId);
-            return waypointsTrack.waypoints.ToList();
+            var waypointsTrack = waypointsCollection.FirstOrDefault(f =>
+                f.FlightIata == flightIata
+            );
+            return waypointsTrack.Waypoints.ToList();
         }
     }
 }

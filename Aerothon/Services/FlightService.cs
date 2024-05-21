@@ -13,19 +13,22 @@ namespace Aerothon.Services
             _flightrepository = flightrepository;
         }
 
-        public FlightResponse getFlightDetailsById(string flightId)
+        public async Task<FlightResponse> GetFlightDetailsByIata(string flightIata)
         {
-            var flightDetails = _flightrepository.getFlightDetailsById(flightId);
+            var flightDetails = await _flightrepository.GetFlightDetailsByIata(flightIata);
 
             if (flightDetails == null)
             {
                 return new FlightResponse();
             }
-
             var lastPositionR = new WaypointResponse();
-            lastPositionR.Lattitude = flightDetails.LastPosition.Lattitude;
-            lastPositionR.Longitude = flightDetails.LastPosition.Longitude;
-            lastPositionR.Weather = flightDetails.LastPosition.Weather;
+
+            if (flightDetails.LastPosition != null)
+            {
+                lastPositionR.Lattitude = flightDetails.LastPosition.Latitude;
+                lastPositionR.Longitude = flightDetails.LastPosition.Longitude;
+                lastPositionR.Weather = flightDetails.LastPosition.Weather;
+            }
 
             FlightResponse flightresponse =
                 new()
@@ -39,9 +42,9 @@ namespace Aerothon.Services
             return flightresponse;
         }
 
-        public List<WaypointResponse> getAllWaypointsOfFlight(string flightId)
+        public List<WaypointResponse> GetAllWaypointsOfFlight(string flightIata)
         {
-            var waypoints = _flightrepository.getAllWaypointsOfFlight(flightId);
+            var waypoints = _flightrepository.GetAllWaypointsOfFlight(flightIata);
 
             if (waypoints == null)
             {
@@ -51,7 +54,7 @@ namespace Aerothon.Services
             List<WaypointResponse> waypointResponses = waypoints
                 .Select(w => new WaypointResponse
                 {
-                    Lattitude = w.Lattitude,
+                    Lattitude = w.Latitude,
                     Longitude = w.Longitude,
                     Weather = w.Weather
                 })

@@ -4,7 +4,7 @@ namespace Aerothon.Repository.Interfaces
 {
     public interface IFlightRepository
     {
-        Flight getFlightDetailsById(string flightId);
-        List<Waypoint> getAllWaypointsOfFlight(string flightId);
+        Task<Flight> GetFlightDetailsByIata(string flightIata);
+        List<Waypoint> GetAllWaypointsOfFlight(string flightIata);
     }
 }

@@ -14,16 +14,16 @@ namespace Aerothon.Controllers
         }
 
         [HttpGet("flights/{id}")]
-        public IActionResult GetFlightDetailsById([FromRoute] string id)
+        public async Task<IActionResult> GetFlightDetailsById([FromRoute] string id)
         {
-            var flightDetails = _flightservice.getFlightDetailsById(id);
+            var flightDetails = await _flightservice.GetFlightDetailsByIata(id);
             return Ok(flightDetails);
         }
 
         [HttpGet("flights/{id}/track")]
         public IActionResult GetAllWaypointsOfFlight(string id)
         {
-            var wayPoints = _flightservice.getAllWaypointsOfFlight(id);
+            var wayPoints = _flightservice.GetAllWaypointsOfFlight(id);
             return Ok(wayPoints);
         }
     }
