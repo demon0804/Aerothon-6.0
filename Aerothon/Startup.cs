@@ -31,6 +31,7 @@ namespace IMDB
             services.AddSingleton<IFlightRepository, FlightRepository>();
             services.AddSingleton<IFlightService, FlightService>();
             services.AddSingleton<IWeatherHelper, WeatherHelper>();
+            services.AddSingleton<IWaypointHelper, WaypointHelper>();
 
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IUserRepository, UserRepository>();

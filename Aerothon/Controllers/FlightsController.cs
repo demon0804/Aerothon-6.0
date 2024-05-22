@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Aerothon.Controllers
 {
     /// <summary>
-    ///
+    /// FlightsController
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("/[controller]")]

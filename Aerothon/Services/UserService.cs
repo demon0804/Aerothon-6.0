@@ -3,7 +3,6 @@ using Aerothon.Models.Entities;
 using Aerothon.Models.Request;
 using Aerothon.Repository.Interfaces;
 using Aerothon.Services.Interfaces;
-using Microsoft.AspNetCore.Identity;
 
 namespace Aerothon.Services
 {
@@ -22,13 +21,12 @@ namespace Aerothon.Services
         /// </summary>
         private readonly IPasswordHelper _passwordHelper;
 
-        public UserService(
-            IUserRepository userRepository,
-            IPasswordHelper passwordHelper)
+        public UserService(IUserRepository userRepository, IPasswordHelper passwordHelper)
         {
             _userRepository = userRepository;
             _passwordHelper = passwordHelper;
         }
+
         /// <summary>
         /// Adds the specified user request.
         /// </summary>
@@ -60,7 +58,7 @@ namespace Aerothon.Services
         /// <param name="userRequest">The user request.</param>
         private void ValidateRequest(UserRequest userRequest)
         {
-            if(string.IsNullOrEmpty(userRequest.UserName))
+            if (string.IsNullOrEmpty(userRequest.UserName))
             {
                 throw new Exception("Name cannot be empty");
             }

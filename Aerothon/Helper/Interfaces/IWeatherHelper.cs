@@ -1,5 +1,8 @@
 ﻿namespace Aerothon.Helper.Interfaces
 {
+    /// <summary>
+    /// IWeatherHelper
+    /// </summary>
     public interface IWeatherHelper
     {
         /// <summary>
