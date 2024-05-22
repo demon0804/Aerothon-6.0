@@ -87,7 +87,7 @@ namespace Aerothon.Helper
         {
             string apiKey = "78483b9825ceeeeb6c1d9440afb18f23";
             string apiUrl =
-                $"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={apiKey}";
+                $"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={apiKey}&units=metric";
 
             HttpClient client = new();
             HttpResponseMessage response = await client.GetAsync(apiUrl);

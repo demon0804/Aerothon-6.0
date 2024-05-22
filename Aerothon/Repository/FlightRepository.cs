@@ -37,8 +37,24 @@ namespace Aerothon.Repository
                     FlightIata = "LY4215",
                     Waypoints = new List<Waypoint>
                     {
-                        new() { Latitude = 40.7128f, Longitude = -74.0060f, },
-                        new() { Latitude = 40.7128f, Longitude = -74.0060f, },
+                        new() { Latitude = -41.2865f, Longitude = 174.7762f },
+                        new() { Latitude = 41.8781f, Longitude = -87.6298f },
+                        new() { Latitude = 64.1355f, Longitude = -21.8954f },
+                        new() { Latitude = 55.9533f, Longitude = -3.1883f },
+                        new() { Latitude = -33.9249f, Longitude = 18.4241f },
+                        new() { Latitude = -42.8821f, Longitude = 147.3272f },
+                        new() { Latitude = 40.7128f, Longitude = -10.0060f },
+                        new() { Latitude = 40.7128f, Longitude = -74.0060f },
+                        new() { Latitude = 48.8566f, Longitude = 2.3522f }, // Paris, France
+                        new() { Latitude = 35.6895f, Longitude = 139.6917f }, // Tokyo, Japan
+                        new() { Latitude = -34.6037f, Longitude = -58.3816f }, // Buenos Aires, Argentina
+                        new() { Latitude = 51.5074f, Longitude = -0.1278f }, // London, UK
+                        new() { Latitude = 37.7749f, Longitude = -122.4194f }, // San Francisco, USA
+                        new() { Latitude = -22.9068f, Longitude = -43.1729f }, // Rio de Janeiro, Brazil
+                        new() { Latitude = 34.0522f, Longitude = -118.2437f }, // Los Angeles, USA
+                        new() { Latitude = 28.6139f, Longitude = 77.2090f }, // New Delhi, India
+                        new() { Latitude = -1.2921f, Longitude = 36.8219f }, // Nairobi, Kenya
+                        new() { Latitude = 55.7558f, Longitude = 37.6173f }
                     }
                 }
             };
