@@ -16,10 +16,10 @@ namespace Aerothon.Helper
         List<Waypoint> CalculateGreatCirclePath(Waypoint source, Waypoint destination);
 
         /// <summary>
-        /// Gets the coordinates by iata.
+        /// Gets the coordinates by airport.
         /// </summary>
-        /// <param name="iata">The iata.</param>
+        /// <param name="airport">The airport.</param>
         /// <returns></returns>
-        Waypoint GetCoordinatesByIata(string iata);
+        Task<Waypoint> GetCoordinatesByAirport(string airport);
     }
 }

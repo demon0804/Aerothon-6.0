@@ -48,8 +48,6 @@ namespace Aerothon.Repository
                 string responseData = await response.Content.ReadAsStringAsync();
                 dynamic responseJson = JsonConvert.DeserializeObject(responseData);
 
-                Console.WriteLine("Parsed JSON: " + responseJson);
-
                 flightDetails.Id = responseJson.data[0].flight.iata;
                 if (responseJson.data[0].live != null)
                 {
@@ -60,6 +58,20 @@ namespace Aerothon.Repository
                         Weather = await _weatherHelper.CalculateScore(
                             responseJson.data[0].live.latitude,
                             responseJson.data[0].live.longitude
+                        )
+                    };
+                }
+                else
+                {
+                    string airport = responseJson.data[0].departure.airport;
+                    Waypoint coordinates = await _waypointHelper.GetCoordinatesByAirport(airport);
+                    flightDetails.LastPosition = new Waypoint
+                    {
+                        Latitude = coordinates.Latitude,
+                        Longitude = coordinates.Longitude,
+                        Weather = await _weatherHelper.CalculateScore(
+                            coordinates.Latitude,
+                            coordinates.Longitude
                         )
                     };
                 }
@@ -90,20 +102,20 @@ namespace Aerothon.Repository
         /// <returns></returns>
         public async Task<List<Waypoint>> GetAllWaypointsOfFlight(string flightIata)
         {
-            // Fetch flight details based on flightIata
-            //Flight flightDetails = await GetFlightDetailsByIata(flightIata);
-            //if (flightDetails == null)
-            //{
-            //    return new List<Waypoint>(); // Return empty list if no flight details found
-            //}
+            //Fetch flight details based on flightIata
+            Flight flightDetails = await GetFlightDetailsByIata(flightIata);
+            if (flightDetails == null)
+            {
+                return new List<Waypoint>(); // Return empty list if no flight details found
+            }
 
-            // Extract source and destination waypoints from flight details
-            // var source = _waypointHelper.GetCoordinatesByIata(flightDetails.Source);
-            // var destination = _waypointHelper.GetCoordinatesByIata(flightDetails.Destination);
-
-            var source = new Waypoint { Latitude = 37.7749f, Longitude = -122.4194f };
-
-            var destination = new Waypoint { Latitude = 40.7128f, Longitude = -74.0060f };
+            //Extract source and destination waypoints from flight details
+            var source = await _waypointHelper.GetCoordinatesByAirport(
+                flightDetails.Source.Airport
+            );
+            var destination = await _waypointHelper.GetCoordinatesByAirport(
+                flightDetails.Destination.Airport
+            );
 
             // Calculate waypoints along the great circle path
             var waypoints = _waypointHelper.CalculateGreatCirclePath(source, destination);

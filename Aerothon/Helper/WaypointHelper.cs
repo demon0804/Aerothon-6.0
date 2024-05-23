@@ -1,4 +1,5 @@
 ﻿using Aerothon.Models.Entities;
+using Newtonsoft.Json;
 
 namespace Aerothon.Helper
 {
@@ -56,14 +57,26 @@ namespace Aerothon.Helper
         /// </summary>
         /// <param name="iata"></param>
         /// <returns></returns>
-        public Waypoint GetCoordinatesByIata(string iata)
+        public async Task<Waypoint> GetCoordinatesByAirport(string airport)
         {
-            if (airportDictionary.ContainsKey(iata))
+            string apiKey = "2d854a35116a4ee9a0e8b318b3b5dfd6";
+            string apiUrl =
+                $"https://api.geoapify.com/v1/geocode/search?text={airport}&apiKey={apiKey}";
+            var waypoint = new Waypoint();
+
+            HttpClient client = new();
+            HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+            if (response.IsSuccessStatusCode)
             {
-                var (latitude, longitude) = airportDictionary[iata];
-                return new Waypoint { Latitude = latitude, Longitude = longitude };
+                string responseData = await response.Content.ReadAsStringAsync();
+                dynamic responseJson = JsonConvert.DeserializeObject(responseData);
+
+                waypoint.Longitude = responseJson.features[0].properties.lon;
+                waypoint.Latitude = responseJson.features[0].properties.lat;
             }
-            return null;
+
+            return waypoint;
         }
 
         // /// <summary>
