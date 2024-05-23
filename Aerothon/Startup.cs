@@ -29,9 +29,9 @@ namespace IMDB
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AerothonWebApp", Version = "v1" });
             });
 
-            services.AddSingleton<InferenceSession>(
-                new InferenceSession("MLModel/weather_safety_model.onnx")
-            );
+            //services.AddSingleton<InferenceSession>(
+            //    new InferenceSession("MLModel/weather_safety_model.onnx")
+            //);
 
             services.AddSingleton<IFlightRepository, FlightRepository>();
             services.AddSingleton<IFlightService, FlightService>();
