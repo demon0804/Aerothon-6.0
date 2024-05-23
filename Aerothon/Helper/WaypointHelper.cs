@@ -9,12 +9,7 @@ namespace Aerothon.Helper
     /// <seealso cref="Aerothon.Helper.IWaypointHelper" />
     public class WaypointHelper : IWaypointHelper
     {
-        private readonly Dictionary<string, (float, float)> airportDictionary = new();
-
-        public WaypointHelper()
-        {
-            // ParseAirportData();
-        }
+        public WaypointHelper() { }
 
         /// <summary>
         /// Calculates the great circle path.
@@ -22,7 +17,7 @@ namespace Aerothon.Helper
         /// <param name="source">The source.</param>
         /// <param name="destination">The destination.</param>
         /// <returns></returns>
-        public List<Waypoint> CalculateGreatCirclePath(Waypoint source, Waypoint destination)
+        public List<Waypoint> CalculateWayPoints(Waypoint source, Waypoint destination)
         {
             // var waypoints = new List<Waypoint>();
             // double d = CalculateDistance(source, destination);
@@ -153,26 +148,5 @@ namespace Aerothon.Helper
         //     double R = 6371; // Earth's radius in kilometers
         //     return R * c;
         // }
-
-        private void ParseAirportData()
-        {
-            var data = File.ReadAllText("GlobalAirportDatabase.txt");
-            var lines = data.Split(
-                new[] { Environment.NewLine },
-                StringSplitOptions.RemoveEmptyEntries
-            );
-
-            foreach (var line in lines)
-            {
-                var parts = line.Split(':'); // Changed from '|' to ':'
-                if (parts.Length > 14)
-                {
-                    var iataCode = parts[1];
-                    var latitude = float.Parse(parts[14]);
-                    var longitude = float.Parse(parts[15]);
-                    airportDictionary[iataCode] = (latitude, longitude);
-                }
-            }
-        }
     }
 }

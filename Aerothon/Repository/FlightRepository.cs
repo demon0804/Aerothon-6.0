@@ -49,7 +49,7 @@ namespace Aerothon.Repository
                 string responseData = await response.Content.ReadAsStringAsync();
                 dynamic responseJson = JsonConvert.DeserializeObject(responseData);
 
-                if (responseJson.count < 1)
+                if (responseJson.pagination.count < 1)
                 {
                     return null;
                 }
@@ -125,7 +125,7 @@ namespace Aerothon.Repository
             );
 
             // Calculate waypoints along the great circle path
-            var waypoints = _waypointHelper.CalculateGreatCirclePath(source, destination);
+            var waypoints = _waypointHelper.CalculateWayPoints(source, destination);
 
             // Optionally, enrich waypoints with weather data
             foreach (var waypoint in waypoints)

@@ -13,7 +13,7 @@ namespace Aerothon.Helper
         /// <param name="source">The source.</param>
         /// <param name="destination">The destination.</param>
         /// <returns></returns>
-        List<Waypoint> CalculateGreatCirclePath(Waypoint source, Waypoint destination);
+        List<Waypoint> CalculateWayPoints(Waypoint source, Waypoint destination);
 
         /// <summary>
         /// Gets the coordinates by airport.
