@@ -35,7 +35,7 @@ namespace Aerothon.Helper
 
             // return waypoints;
 
-            int numberOfPoints = 20;
+            int numberOfPoints = 5;
             List<Waypoint> points = new();
 
             for (int i = 0; i <= numberOfPoints; i++)

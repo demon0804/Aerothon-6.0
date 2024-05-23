@@ -35,8 +35,22 @@ namespace Aerothon.Services
                 {
                     Id = flightDetails.Id,
                     LastPosition = lastPositionR,
-                    Source = flightDetails.Source,
-                    Destination = flightDetails.Destination
+                    Source = new()
+                    {
+                        Airport = flightDetails.Source.Airport,
+                        Timezone = flightDetails.Source.Timezone,
+                        IATA = flightDetails.Source.IATA,
+                        ICAO = flightDetails.Source.ICAO,
+                        Scheduled = flightDetails.Source.Scheduled,
+                    },
+                    Destination = new()
+                    {
+                        Airport = flightDetails.Destination.Airport,
+                        Timezone = flightDetails.Destination.Timezone,
+                        IATA = flightDetails.Destination.IATA,
+                        ICAO = flightDetails.Destination.ICAO,
+                        Scheduled = flightDetails.Destination.Scheduled,
+                    },
                 };
 
             return flightresponse;

@@ -42,7 +42,7 @@ namespace Aerothon.Controllers
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         [HttpGet("{id}/track")]
-        public async Task<IActionResult> GetAllWaypointsOfFlight(string id)
+        public async Task<IActionResult> GetAllWaypointsOfFlight([FromRoute] string id)
         {
             var wayPoints = await _flightservice.GetAllWaypointsOfFlight(id);
             return Ok(wayPoints);

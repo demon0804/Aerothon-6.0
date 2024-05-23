@@ -63,8 +63,22 @@ namespace Aerothon.Repository
                         )
                     };
                 }
-                flightDetails.Source = responseJson.data[0].departure.iata;
-                flightDetails.Destination = responseJson.data[0].arrival.iata;
+                flightDetails.Source = new()
+                {
+                    Airport = responseJson.data[0].departure.airport,
+                    Timezone = responseJson.data[0].departure.timezone,
+                    IATA = responseJson.data[0].departure.iata,
+                    ICAO = responseJson.data[0].departure.icao,
+                    Scheduled = responseJson.data[0].departure.scheduled
+                };
+                flightDetails.Destination = new()
+                {
+                    Airport = responseJson.data[0].arrival.airport,
+                    Timezone = responseJson.data[0].arrival.timezone,
+                    IATA = responseJson.data[0].arrival.iata,
+                    ICAO = responseJson.data[0].arrival.icao,
+                    Scheduled = responseJson.data[0].arrival.scheduled
+                };
             }
             return flightDetails;
         }
