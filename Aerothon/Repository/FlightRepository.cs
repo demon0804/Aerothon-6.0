@@ -49,6 +49,11 @@ namespace Aerothon.Repository
                 string responseData = await response.Content.ReadAsStringAsync();
                 dynamic responseJson = JsonConvert.DeserializeObject(responseData);
 
+                if (responseJson.count<1)
+                {
+                    return null;
+                }
+
                 flightDetails.Id = responseJson.data[0].flight.iata;
                 if (responseJson.data[0].live != null)
                 {
@@ -56,7 +61,7 @@ namespace Aerothon.Repository
                     {
                         Latitude = responseJson.data[0].live.latitude,
                         Longitude = responseJson.data[0].live.longitude,
-                        Weather = await _weatherHelper.CalculateScore(
+                        Weather = await _weatherHelper.CheckWeatherIsSafeToTravel(
                             responseJson.data[0].live.latitude,
                             responseJson.data[0].live.longitude
                         )
@@ -70,7 +75,7 @@ namespace Aerothon.Repository
                     {
                         Latitude = coordinates.Latitude,
                         Longitude = coordinates.Longitude,
-                        Weather = await _weatherHelper.CalculateScore(
+                        Weather = await _weatherHelper.CheckWeatherIsSafeToTravel(
                             coordinates.Latitude,
                             coordinates.Longitude
                         )
@@ -125,7 +130,7 @@ namespace Aerothon.Repository
             // Optionally, enrich waypoints with weather data
             foreach (var waypoint in waypoints)
             {
-                waypoint.Weather = await _weatherHelper.CalculateScore(
+                waypoint.Weather = await _weatherHelper.CheckWeatherIsSafeToTravel(
                     waypoint.Latitude,
                     waypoint.Longitude
                 );

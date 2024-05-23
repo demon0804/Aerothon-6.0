@@ -28,10 +28,18 @@ namespace Aerothon.Helper
         /// <param name="latitude">The latitude.</param>
         /// <param name="longitude">The longitude.</param>
         /// <returns></returns>
-        public async Task<string> CalculateScore(float latitude, float longitude)
+        public async Task<bool> CheckWeatherIsSafeToTravel(float latitude, float longitude)
         {
             WeatherParams weatherParams = await GetWeatherParams(latitude, longitude);
-            return GetWeatherPrediction(weatherParams);
+            var prediction = GetWeatherPrediction(weatherParams);
+            if (prediction == "Yes")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>

@@ -27,6 +27,6 @@
         /// <value>
         /// The weather.
         /// </value>
-        public string Weather { get; set; }
+        public bool Weather { get; set; }
     }
 }
