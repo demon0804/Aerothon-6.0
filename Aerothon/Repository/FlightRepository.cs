@@ -38,13 +38,14 @@ namespace Aerothon.Repository
             string apiKey = "08b1e479905fc25386c758fda85cdcc4";
             string apiUrl =
                 $"http://api.aviationstack.com/v1/flights?access_key={apiKey}&flight_iata={flightIata}&flight_status=active";
-            var flightDetails = new Flight();
 
             HttpClient client = new();
             HttpResponseMessage response = await client.GetAsync(apiUrl);
 
             if (response.IsSuccessStatusCode)
             {
+                var flightDetails = new Flight();
+
                 string responseData = await response.Content.ReadAsStringAsync();
                 dynamic responseJson = JsonConvert.DeserializeObject(responseData);
 
@@ -91,8 +92,9 @@ namespace Aerothon.Repository
                     ICAO = responseJson.data[0].arrival.icao,
                     Scheduled = responseJson.data[0].arrival.scheduled
                 };
+                return flightDetails;
             }
-            return flightDetails;
+            return null;
         }
 
         /// <summary>

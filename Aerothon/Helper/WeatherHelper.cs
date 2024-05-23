@@ -17,9 +17,9 @@ namespace Aerothon.Helper
         /// Initializes a new instance of the <see cref="WeatherHelper"/> class.
         /// </summary>
         /// <param name="session">The session.</param>
-        public WeatherHelper()
+        public WeatherHelper(InferenceSession session)
         {
-            _session = new InferenceSession("MLModel/weather_safety_model.onnx");
+            _session = session;
         }
 
         /// <summary>
