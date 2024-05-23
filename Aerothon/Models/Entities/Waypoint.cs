@@ -27,6 +27,6 @@
         /// <value>
         /// The weather.
         /// </value>
-        public bool Weather { get; set; }
+        public bool IsSafeToTravel { get; set; }
     }
 }

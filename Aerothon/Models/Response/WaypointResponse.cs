@@ -4,6 +4,6 @@
     {
         public float Lattitude { get; set; }
         public float Longitude { get; set; }
-        public bool Weather { get; set; }
+        public bool IsSafeToTravel { get; set; }
     }
 }

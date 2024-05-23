@@ -27,7 +27,7 @@ namespace Aerothon.Services
             {
                 lastPositionR.Lattitude = flightDetails.LastPosition.Latitude;
                 lastPositionR.Longitude = flightDetails.LastPosition.Longitude;
-                lastPositionR.Weather = flightDetails.LastPosition.Weather;
+                lastPositionR.IsSafeToTravel = flightDetails.LastPosition.IsSafeToTravel;
             }
 
             FlightResponse flightresponse =
@@ -70,7 +70,7 @@ namespace Aerothon.Services
                 {
                     Lattitude = w.Latitude,
                     Longitude = w.Longitude,
-                    Weather = w.Weather
+                    IsSafeToTravel = w.IsSafeToTravel
                 })
                 .ToList();
 
