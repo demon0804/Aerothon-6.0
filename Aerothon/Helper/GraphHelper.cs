@@ -128,77 +128,44 @@ namespace Aerothon.Helper
         /// <returns>list of paths</returns>
         public List<List<Waypoint>> FindKShortestPaths(Waypoint source, Waypoint destination, int k)
         {
-            var kShortestPaths = new List<List<Waypoint>>();
-            var candidates = new List<List<Waypoint>>();
+            var kPaths = GenerateAlternateRoutes(source, destination, 3);
 
-            // Find the shortest path
-            var shortestPath = Dijkstra(source, destination);
-            kShortestPaths.Add(shortestPath);
+            return kPaths;
+        }
 
-            for (int i = 1; i < k; i++)
+        /// <summary>
+        /// Generates the alternate routes.
+        /// </summary>
+        /// <param name="startCoordinate">The start coordinate.</param>
+        /// <param name="endCoordinate">The end coordinate.</param>
+        /// <param name="k">The k.</param>
+        /// <returns>alternate paths </returns>
+        private List<List<Waypoint>> GenerateAlternateRoutes(Waypoint startCoordinate, Waypoint endCoordinate, int k)
+        {
+            var routes = new List<List<Waypoint>>();
+
+            for (int i = 0; i < k; i++)
             {
-                var lastPath = kShortestPaths.Last();
-                for (int j = 0; j < lastPath.Count - 1; j++)
+                var route = new List<Waypoint>();
+                route.Add(startCoordinate);
+
+                double latDiff = (endCoordinate.Lattitude - startCoordinate.Lattitude) / 6;
+                double lonDiff = (endCoordinate.Longitude - startCoordinate.Longitude) / 6;
+
+                for (int j = 1; j <= 5; j++)
                 {
-                    var spurNode = lastPath[j];
-                    var rootPath = lastPath.Take(j + 1).ToList();
-
-                    var removedEdges = new List<Tuple<Waypoint, Waypoint, double>>();
-
-                    // Remove the edges that were part of the previous paths
-                    foreach (var path in kShortestPaths)
-                    {
-                        if (path.Count > j && rootPath.SequenceEqual(path.Take(j + 1)))
-                        {
-                            var edge = Tuple.Create(path[j], path[j + 1], _adjacencyList[path[j]][path[j + 1]]);
-                            removedEdges.Add(edge);
-                            _adjacencyList[path[j]].Remove(path[j + 1]);
-                        }
-                    }
-
-                    // Remove the root path nodes from the graph
-                    foreach (var rootNode in rootPath)
-                    {
-                        if (_adjacencyList.ContainsKey(rootNode))
-                        {
-                            foreach (var neighbor in _adjacencyList[rootNode].Keys.ToList())
-                            {
-                                removedEdges.Add(Tuple.Create(rootNode, neighbor, _adjacencyList[rootNode][neighbor]));
-                                _adjacencyList[rootNode].Remove(neighbor);
-                            }
-                        }
-                    }
-
-                    var spurPath = Dijkstra(spurNode, destination);
-
-                    if (spurPath.Count > 0)
-                    {
-                        var totalPath = new List<Waypoint>(rootPath);
-                        totalPath.AddRange(spurPath.Skip(1));
-                        candidates.Add(totalPath);
-                    }
-
-                    // Add the removed edges back to the graph
-                    foreach (var edge in removedEdges)
-                    {
-                        if (!_adjacencyList.ContainsKey(edge.Item1))
-                            _adjacencyList[edge.Item1] = new Dictionary<Waypoint, double>();
-
-                        _adjacencyList[edge.Item1][edge.Item2] = edge.Item3;
-                    }
+                    double nextLat = startCoordinate.Lattitude + j * latDiff;
+                    double nextLon = startCoordinate.Longitude + j * lonDiff;
+                    route.Add(new Waypoint { Lattitude = (float)nextLat, Longitude = (float)nextLon });
                 }
 
-                if (candidates.Count == 0)
-                    break;
-
-                candidates = candidates.OrderBy(path => CalculatePathDistance(path)).ToList();
-
-                kShortestPaths.Add(candidates.First());
-                candidates.RemoveAt(0);
+                route.Add(endCoordinate);
+                routes.Add(route);
             }
 
-            return kShortestPaths;
+            return routes;
         }
+
 
         /// <summary>
         /// calcukate distance

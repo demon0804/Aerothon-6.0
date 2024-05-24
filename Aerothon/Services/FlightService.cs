@@ -87,7 +87,7 @@ namespace Aerothon.Services
 
         /// <summary>
         /// Get alternate paths
-        /// </summary>00
+        /// </summary>
         /// <param name="currentPosition"></param>
         /// <param name="destination"></param>
         /// <returns>list of alternate paths.</returns>

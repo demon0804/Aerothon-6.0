@@ -1,5 +1,7 @@
 ﻿using Aerothon.Models.Entities;
 using Aerothon.Repository.Interfaces;
+using Dapper;
+using Npgsql;
 
 namespace Aerothon.Repository
 {
@@ -10,20 +12,9 @@ namespace Aerothon.Repository
     public class UserRepository : IUserRepository
     {
         /// <summary>
-        /// The users
+        /// The connection string
         /// </summary>
-        private readonly List<User> _users = new List<User>()
-            {
-                new User()
-                {
-                    Id = 1,
-                    UserName = "Harsh.Bh",
-                    FirstName = "Harsh",
-                    LastName = "Bharadwaj",
-                    Password = "c29hUtlK9g2QEX3kXhNuAq90nU/0aL1J+TFeHyYfLXsKtfNNThNnsEm2/muQhV7u7Jm0ugEuTFrfTCOdUkGcxg==",
-                    Email = "harsh.b@abc.com"
-                }
-            };
+        private readonly string _connectionString = "Host=abul.db.elephantsql.com;Username=bvchllxv;Password=0p4MvPGG25obquUww-Sg6optVy6MUJwl;Database=bvchllxv";
 
         /// <summary>
         /// Prevents a default instance of the <see cref="UserRepository"/> class from being created.
@@ -39,12 +30,21 @@ namespace Aerothon.Repository
         /// <returns>User</returns>
         public User Get(string username)
         {
-            if (string.IsNullOrEmpty(username))
-            {
-                throw new ArgumentNullException("username");
-            }
-
-            return _users.Where(a => a.UserName == username).FirstOrDefault();
+            using var connection = new NpgsqlConnection(_connectionString);
+            var query = $@"SELECT 
+                ""id"", 
+                ""UserName"", 
+                ""FirstName"", 
+                ""LastName"", 
+                ""Password"", 
+                ""Email""
+            FROM 
+                ""User""
+            WHERE 
+                 ""UserName"" = @Username
+            LIMIT 1
+";
+            return connection.QuerySingleOrDefault<User>(query, new { Username = username });
         }
 
         /// <summary>
@@ -54,8 +54,12 @@ namespace Aerothon.Repository
         /// <returns></returns>
         public int Add(User user)
         {
-            _users.Add(user);
-            return _users.Count();
+            using var connection = new NpgsqlConnection(_connectionString);
+            var query = $@"
+                           INSERT INTO ""User"" (""UserName"", ""Password"", ""FirstName"", ""LastName"", ""Email"")
+                           VALUES (@UserName, @Password, @FirstName, @LastName, @Email)
+                    ";
+            return connection.Execute(query, user);
         }
     }
 }

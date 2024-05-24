@@ -7,7 +7,7 @@ namespace Aerothon.Helper
     {
         // Constants
         private const int SaltSize = 16;
-        private const int KeySize = 32;
+        private const int KeySize = 20;
         private const int Iterations = 10000;
 
         public PasswordHelper()

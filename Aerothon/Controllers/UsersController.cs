@@ -40,8 +40,8 @@ namespace Aerothon.Controllers
         [HttpPost("Signup")]
         public IActionResult Signup([FromBody] UserRequest userRequest)
         {
-            var userId = _userService.Add(userRequest);
-            return Ok(userId);
+            _userService.Add(userRequest);
+            return Ok("User added successfully");
         }
     }
 }
