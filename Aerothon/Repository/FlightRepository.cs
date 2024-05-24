@@ -57,13 +57,15 @@ namespace Aerothon.Repository
                 flightDetails.Id = responseJson.data[0].flight.iata;
                 if (responseJson.data[0].live != null)
                 {
+                    float Latitude = responseJson.data[0].live.latitude;
+                    float Longitude = responseJson.data[0].live.longitude;
                     flightDetails.LastPosition = new Waypoint
                     {
-                        Latitude = responseJson.data[0].live.latitude,
-                        Longitude = responseJson.data[0].live.longitude,
+                        Latitude = Latitude,
+                        Longitude = Longitude,
                         IsSafeToTravel = await _weatherHelper.CheckWeatherIsSafeToTravel(
-                            responseJson.data[0].live.latitude,
-                            responseJson.data[0].live.longitude
+                            Latitude,
+                            Longitude
                         )
                     };
                 }
