@@ -54,8 +54,7 @@ namespace Aerothon.Services
                 throw new Exception($"User with user name {loginRequest.UserName} does not exists");
             }
 
-            var hashPassword = _passwordHelper.HashPassword(loginRequest.Password);
-            if (_passwordHelper.VerifyPassword(loginRequest.Password, hashPassword))
+            if (_passwordHelper.VerifyPassword(loginRequest.Password, user.Password))
             {
                 return new UserResponse()
                 {

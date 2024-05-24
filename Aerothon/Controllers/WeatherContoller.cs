@@ -4,6 +4,7 @@ using WeatherApi2._0.Model;
 using WeatherApi2._0.Services.Interface;
 
 [ApiController]
+[Route("/[controller]")]
 public class WeatherController : ControllerBase
 {
     private readonly IWeatherService _weatherService;
@@ -64,12 +65,12 @@ public class WeatherController : ControllerBase
             return StatusCode(500, $"An error occurred: {ex.Message}");
         }
     }
-    /*public ActionResult<Prediction> Score([FromBody] WeatherParams data)
+    public ActionResult<Prediction> Score([FromBody] WeatherParams data)
     {
 
         var predictedList = _weatherService.getWeatherPrediction(data); // Call the Score method
         return Ok(predictedList);
 
 
-    }*/
+    }
 }
