@@ -7,7 +7,7 @@ using Aerothon.Services.Interfaces;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.OpenApi.Models;
 
-namespace IMDB
+namespace Aerothon
 {
     public class Startup
     {
@@ -29,9 +29,9 @@ namespace IMDB
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AerothonWebApp", Version = "v1" });
             });
 
-            //services.AddSingleton<InferenceSession>(
-            //    new InferenceSession("MLModel/weather_safety_model.onnx")
-            //);
+            services.AddSingleton<InferenceSession>(
+                new InferenceSession("MLModel/weather_safety_model.onnx")
+            );
 
             services.AddSingleton<IFlightRepository, FlightRepository>();
             services.AddSingleton<IFlightService, FlightService>();
