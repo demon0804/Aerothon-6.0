@@ -29,6 +29,15 @@ namespace Aerothon
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AerothonWebApp", Version = "v1" });
             });
 
+            services.AddCors(options =>
+            {
+                // allow from anywhere
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+
             services.AddSingleton<InferenceSession>(
                 new InferenceSession("MLModel/weather_safety_model.onnx")
             );
@@ -47,6 +56,7 @@ namespace Aerothon
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "AerothonWebApp v1")
