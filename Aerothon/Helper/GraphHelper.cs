@@ -41,7 +41,11 @@ namespace Aerothon.Helper
         /// <param name="source">source</param>
         /// <param name="destination">destination</param>
         /// <param name="waypointsBetween">way points between</param>
-        public void CreateGraph(Waypoint source, Waypoint destination, List<Waypoint> waypointsBetween)
+        public void CreateGraph(
+            Waypoint source,
+            Waypoint destination,
+            List<Waypoint> waypointsBetween
+        )
         {
             var allWaypoints = new List<Waypoint>(waypointsBetween) { source, destination };
 
@@ -52,7 +56,7 @@ namespace Aerothon.Helper
                 {
                     if (wp1 != wp2)
                     {
-                        var wayPointHelper = new WaypointHelper(wp1.Lattitude, wp1.Longitude);
+                        var wayPointHelper = new WaypointHelper(wp1.Latitude, wp1.Longitude);
                         double distance = wayPointHelper.DistanceTo(wp2);
                         AddEdge(wp1, wp2, distance);
                     }
@@ -140,7 +144,11 @@ namespace Aerothon.Helper
         /// <param name="endCoordinate">The end coordinate.</param>
         /// <param name="k">The k.</param>
         /// <returns>alternate paths </returns>
-        private List<List<Waypoint>> GenerateAlternateRoutes(Waypoint startCoordinate, Waypoint endCoordinate, int k)
+        private List<List<Waypoint>> GenerateAlternateRoutes(
+            Waypoint startCoordinate,
+            Waypoint endCoordinate,
+            int k
+        )
         {
             var routes = new List<List<Waypoint>>();
 
@@ -149,14 +157,16 @@ namespace Aerothon.Helper
                 var route = new List<Waypoint>();
                 route.Add(startCoordinate);
 
-                double latDiff = (endCoordinate.Lattitude - startCoordinate.Lattitude) / 6;
+                double latDiff = (endCoordinate.Latitude - startCoordinate.Latitude) / 6;
                 double lonDiff = (endCoordinate.Longitude - startCoordinate.Longitude) / 6;
 
                 for (int j = 1; j <= 5; j++)
                 {
-                    double nextLat = startCoordinate.Lattitude + j * latDiff;
+                    double nextLat = startCoordinate.Latitude + j * latDiff;
                     double nextLon = startCoordinate.Longitude + j * lonDiff;
-                    route.Add(new Waypoint { Lattitude = (float)nextLat, Longitude = (float)nextLon });
+                    route.Add(
+                        new Waypoint { Latitude = (float)nextLat, Longitude = (float)nextLon }
+                    );
                 }
 
                 route.Add(endCoordinate);
@@ -165,7 +175,6 @@ namespace Aerothon.Helper
 
             return routes;
         }
-
 
         /// <summary>
         /// calcukate distance

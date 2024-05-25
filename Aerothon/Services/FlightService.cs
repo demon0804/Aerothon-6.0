@@ -20,9 +20,7 @@ namespace Aerothon.Services
         /// </summary>
         /// <param name="flightrepository">The flightrepository.</param>
         /// <param name="graphHelper">The graph helper.</param>
-        public FlightService(
-            IFlightRepository flightrepository,
-            IGraphHelper graphHelper)
+        public FlightService(IFlightRepository flightrepository, IGraphHelper graphHelper)
         {
             _flightrepository = flightrepository;
             _graphHelper = graphHelper;
@@ -33,27 +31,44 @@ namespace Aerothon.Services
         /// </summary>
         /// <param name="flightId"></param>
         /// <returns>flight response</returns>
-        public FlightResponse getFlightDetailsById(string flightId)
+        public async Task<FlightResponse> GetFlightDetailsByIata(string flightIata)
         {
-            var flightDetails = _flightrepository.getFlightDetailsById(flightId);
+            var flightDetails = await _flightrepository.GetFlightDetailsByIata(flightIata);
 
             if (flightDetails == null)
             {
                 return new FlightResponse();
             }
-
             var lastPositionR = new WaypointResponse();
-            lastPositionR.Lattitude = flightDetails.LastPosition.Lattitude;
-            lastPositionR.Longitude = flightDetails.LastPosition.Longitude;
-            lastPositionR.Weather = flightDetails.LastPosition.Weather;
+
+            if (flightDetails.LastPosition != null)
+            {
+                lastPositionR.Lattitude = flightDetails.LastPosition.Latitude;
+                lastPositionR.Longitude = flightDetails.LastPosition.Longitude;
+                lastPositionR.IsSafeToTravel = flightDetails.LastPosition.IsSafeToTravel;
+            }
 
             FlightResponse flightresponse =
                 new()
                 {
                     Id = flightDetails.Id,
                     LastPosition = lastPositionR,
-                    Source = flightDetails.Source,
-                    Destination = flightDetails.Destination
+                    Source = new()
+                    {
+                        Airport = flightDetails.Source.Airport,
+                        Timezone = flightDetails.Source.Timezone,
+                        IATA = flightDetails.Source.IATA,
+                        ICAO = flightDetails.Source.ICAO,
+                        Scheduled = flightDetails.Source.Scheduled,
+                    },
+                    Destination = new()
+                    {
+                        Airport = flightDetails.Destination.Airport,
+                        Timezone = flightDetails.Destination.Timezone,
+                        IATA = flightDetails.Destination.IATA,
+                        ICAO = flightDetails.Destination.ICAO,
+                        Scheduled = flightDetails.Destination.Scheduled,
+                    },
                 };
 
             return flightresponse;
@@ -64,9 +79,9 @@ namespace Aerothon.Services
         /// </summary>
         /// <param name="flightId"></param>
         /// <returns>list of way points</returns>
-        public List<WaypointResponse> getAllWaypointsOfFlight(string flightId)
+        public async Task<List<WaypointResponse>> GetAllWaypointsOfFlight(string flightIata)
         {
-            var waypoints = _flightrepository.getAllWaypointsOfFlight(flightId);
+            var waypoints = await _flightrepository.GetAllWaypointsOfFlight(flightIata);
 
             if (waypoints == null)
             {
@@ -76,9 +91,9 @@ namespace Aerothon.Services
             List<WaypointResponse> waypointResponses = waypoints
                 .Select(w => new WaypointResponse
                 {
-                    Lattitude = w.Lattitude,
+                    Lattitude = w.Latitude,
                     Longitude = w.Longitude,
-                    Weather = w.Weather
+                    IsSafeToTravel = w.IsSafeToTravel
                 })
                 .ToList();
 
@@ -91,7 +106,10 @@ namespace Aerothon.Services
         /// <param name="currentPosition"></param>
         /// <param name="destination"></param>
         /// <returns>list of alternate paths.</returns>
-        public List<List<Waypoint>> GetAlternatePaths(Waypoint currentPosition, Waypoint destination)
+        public List<List<Waypoint>> GetAlternatePaths(
+            Waypoint currentPosition,
+            Waypoint destination
+        )
         {
             var alternatePaths = _graphHelper.FindKShortestPaths(currentPosition, destination, 3);
             return alternatePaths;

@@ -1,5 +1,3 @@
-using Aerothon;
-
 namespace Aerothon
 {
     public class Program

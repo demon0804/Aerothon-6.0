@@ -4,7 +4,7 @@
     {
         public string Id { get; set; }
         public WayPointRequest LastPosition { get; set; }
-        public string Source { get; set; }
-        public string Destination { get; set; }
+        public AirportInfoRequest Source { get; set; }
+        public AirportInfoRequest Destination { get; set; }
     }
 }
