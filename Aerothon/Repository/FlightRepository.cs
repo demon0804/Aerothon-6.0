@@ -38,7 +38,7 @@ namespace Aerothon.Repository
         /// <returns></returns>
         public async Task<Flight> GetFlightDetailsByIata(string flightIata)
         {
-            string apiKey = "919c87e419c9f9a5e06b16e2443e5b25";
+            string apiKey = "84a2e670f12c29f6590ad777b2e0b1c0";
             string apiUrl =
                 $"http://api.aviationstack.com/v1/flights?access_key={apiKey}&flight_iata={flightIata}&flight_status=active";
 
