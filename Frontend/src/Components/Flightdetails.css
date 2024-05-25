@@ -1,0 +1,221 @@
+.flightdetails {
+  margin: auto;
+  min-height: 96vh;
+  width: 99.6%;
+  padding: 2px;
+  border-radius: 5px;
+  opacity: 0.9;
+}
+
+.header {
+  color: black;
+  background-color: aliceblue;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  height: 50px;
+  padding: 5px;
+}
+
+.left-head {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.right-head {
+  display: flex;
+  align-items: center;
+}
+
+.login-icon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.login-icon h4 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.login-icon:hover {
+  border-radius: 5px;
+  background-color: rgb(169, 173, 177);
+}
+
+.main-body {
+  border-radius: 5px;
+  margin: 5px auto;
+  min-width: none;
+  padding: 5px;
+  min-height: 90.61vh;
+  background-color: aliceblue;
+}
+
+.main-body h4,
+h3 {
+  color: black;
+}
+
+.flight-detail {
+  border: 2px solid rgb(208, 226, 208);
+  border-radius: 5px;
+  width: 80%;
+  height: 20%;
+  margin: 10px auto;
+  box-shadow: 5px 5px 3px lightblue;
+}
+
+.flight-detail .points {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.points .point {
+  display: flex;
+  align-items: center;
+  border: 2px solid rgb(225, 232, 234);
+  margin: 10px auto;
+  margin-bottom: 15px;
+  width: 20%;
+  box-shadow: 5px 5px 3px rgb(5, 80, 106);
+  /* justify-content: space-around; */
+}
+
+.point {
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+.point p {
+  margin-left: 5px;
+}
+
+.point .lat-lon {
+  margin: 3px;
+}
+
+p {
+  color: black;
+}
+
+.buttons {
+  width: 40%;
+  margin: auto;
+}
+
+.btns {
+  font-size: 15px;
+  width: 100px;
+  height: 6vh;
+  margin: 10px 10%;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.btns :onclick {
+  background-color: blue;
+}
+
+.waypoints {
+  border: 2px solid rgb(217, 205, 205);
+  border-radius: 5px;
+  flex-direction: column;
+  width: 90%;
+  padding: 5px;
+  box-shadow: 2px 2px 3px rgb(5, 80, 106);
+  margin: 5px auto;
+}
+
+.waypoints h4 {
+  color: black;
+}
+
+.boxes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px auto;
+  width: 100%;
+  border: 2px solid rgb(231, 239, 231);
+  box-shadow: 3px 3px 3px rgb(5, 80, 106);
+  border-radius: 5px;
+  height: 15vh;
+}
+
+.boxes .wps {
+  /* border: 2px solid red; */
+  flex-direction: column;
+  border-radius: 5px;
+  width: 12%;
+  height: 10vh;
+  margin: auto;
+  cursor: pointer;
+}
+
+.wps img {
+  width: 18%;
+  height: 40%;
+  background: none;
+}
+
+p {
+  color: black;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.loadig {
+  position: absolute;
+}
+
+.weather-details {
+  margin: 15px;
+}
+
+#scroll-text {
+  text-align: right;
+  -moz-transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+
+  -moz-animation: my-animation 4s linear infinite;
+  -webkit-animation: my-animation 4s linear infinite;
+  animation: my-animation 4s linear infinite;
+}
+
+@-moz-keyframes my-animation {
+  from {
+    -moz-transform: translateX(-100%);
+  }
+  to {
+    -moz-transform: translateX(100%);
+  }
+}
+
+/* for Chrome */
+@-webkit-keyframes my-animation {
+  from {
+    -webkit-transform: translateX(-100%);
+  }
+  to {
+    -webkit-transform: translateX(100%);
+  }
+}
+
+@keyframes my-animation {
+  from {
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  to {
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}

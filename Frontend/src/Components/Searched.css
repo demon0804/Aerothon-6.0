@@ -1,0 +1,32 @@
+.searched {
+  margin: 20px auto;
+  width: 55%;
+  height: 15vh;
+  border: none;
+  border-radius: 10px;
+  background-color: #fafafa;
+  color: black;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  opacity: 0.9;
+}
+
+.searched h3{
+  margin: 0 auto;
+}
+
+.details {
+  display: flex;
+  width: 70%;
+  margin: 1px auto;
+  margin-bottom: 4px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.details p {
+  font-size: 18px;
+  font-weight: 600;
+}

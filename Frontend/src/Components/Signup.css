@@ -1,0 +1,57 @@
+.register {
+  padding: 1%;
+  padding-top: 1%;
+  font-family: arial;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.sign-box {
+  width: 35%;
+  height: auto;
+  border-radius: 10px;
+  margin: 6% auto;
+  padding: 2% 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #fff;
+  color: #000;
+  opacity: 0.9;
+}
+input {
+  background: transparent;
+  color: #000;
+  padding-right: 23%;
+  border: none;
+  border-bottom: 1px solid #000;
+}
+::placeholder {
+  color: 000;
+}
+::selection {
+  color: #000000;
+  background-color: #ffffff;
+}
+div.text {
+  padding-top: 5%;
+}
+.login-btns {
+  padding-top: 10%;
+  margin-left: 30%;
+  display: flex;
+  align-items: center;
+  width: 50%;
+  cursor: pointer;
+}
+.login-btns p {
+  margin-left: 20px;
+}
+
+.link {
+  text-align: right;
+  transform: translate(-30px);
+  text-decoration-line: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}

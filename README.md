@@ -4,8 +4,6 @@
 
 Ensuring safe and efficient flight navigation is paramount in the aviation industry. This project aims to develop a comprehensive software solution for optimal flight route planning and risk mitigation, addressing challenges like GPS signal loss and adverse weather conditions. The solution leverages algorithms to identify optimal flight paths and provides real-time risk assessments and alternative routes.
 
-
-
 ## Project Overview
 
 The system retrieves flight data from the AviationStackAPI and uses a routing algorithm to find the shortest path and alternate routes between waypoints. It includes a weather-based decision model to determine route safety. The backend is linked to a front-end application and stores user data in a database.
@@ -121,23 +119,29 @@ The machine learning model implemented in this project is a Random Forest classi
 ### Key Steps for Deployment
 
 1. **Azure Environment Setup**:
+
    - Log in to Azure and create a resource group to organize resources.
 
 2. **Web Application Deployment**:
+
    - Create an App Service Plan and a Web App to host the application.
    - Configure continuous deployment from a GitHub repository.
 
 3. **API Management Configuration**:
+
    - Set up Azure API Management to handle API requests and responses.
    - Add API operations and configure CORS policies to ensure secure access.
 
 4. **Network Security**:
+
    - Optionally, whitelist networks to restrict access to the API.
 
 5. **Environment Variable Configuration**:
+
    - Set environment variables for API keys and other configurations necessary for the application.
 
 6. **Accessing the Application**:
+
    - The web application and APIs can be accessed via the URLs provided by Azure.
 
 7. **Deploying the Frontend Application**:

@@ -1,0 +1,38 @@
+.loader {
+  height: 50.3vh;
+  background-color:aliceblue;
+  display: grid;
+  place-items: center;
+  opacity: 0.9;
+}
+
+h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 18px;
+  transform: translate(-50%, -50%);
+  color: black;
+}
+.loader2 {
+  width: 8rem;
+  height: 8rem;
+  position: relative;
+}
+.rot {
+  width: 8rem;
+  height: 8rem;
+  position: absolute;
+  border-right: 0.3rem solid black;
+  border-radius: 50%;
+  animation: rot 2s linear infinite;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
