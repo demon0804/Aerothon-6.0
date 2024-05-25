@@ -1,4 +1,5 @@
-﻿using Aerothon.Services.Interfaces;
+﻿using Aerothon.Models.Entities;
+using Aerothon.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aerothon.Controllers
@@ -46,6 +47,18 @@ namespace Aerothon.Controllers
         {
             var wayPoints = await _flightservice.GetAllWaypointsOfFlight(id);
             return Ok(wayPoints);
+        }
+
+        /// <summary>
+        /// GetAlternatePaths
+        /// </summary>
+        /// <param name="wayPoints">way points</param>
+        /// <returns>Alternate paths</returns>
+        [HttpGet("paths")]
+        public IActionResult GetAlternatePaths([FromBody] List<Waypoint> wayPoints)
+        {
+            var result = _flightservice.GetAlternatePaths(wayPoints[0], wayPoints[1]);
+            return Ok(result);
         }
     }
 }

@@ -40,6 +40,11 @@ namespace Aerothon.Services
             }
 
             ValidateRequest(userRequest);
+            if (_userRepository.Get(userRequest.UserName) != null)
+            {
+                throw new Exception($"User with user name {userRequest.UserName} already exists");
+            }
+
             var user = new User()
             {
                 UserName = userRequest.UserName,

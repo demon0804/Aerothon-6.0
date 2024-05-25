@@ -51,6 +51,7 @@ namespace Aerothon
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IPasswordHelper, PasswordHelper>();
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IGraphHelper, GraphHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
