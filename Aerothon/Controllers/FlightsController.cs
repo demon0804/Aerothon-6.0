@@ -4,28 +4,48 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Aerothon.Controllers
 {
-    [ApiController]
+    /// <summary>
+    /// FlightsController
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("/[controller]")]
     public class FlightsController : ControllerBase
     {
+        /// <summary>
+        /// The flightservice
+        /// </summary>
         private readonly IFlightService _flightservice;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FlightsController"/> class.
+        /// </summary>
+        /// <param name="flightservice">The flightservice.</param>
         public FlightsController(IFlightService flightservice)
         {
             _flightservice = flightservice;
         }
 
+        /// <summary>
+        /// Gets the flight details by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public IActionResult GetFlightDetailsById([FromRoute] string id)
+        public async Task<IActionResult> GetFlightDetailsById([FromRoute] string id)
         {
-            var flightDetails = _flightservice.getFlightDetailsById(id);
+            var flightDetails = await _flightservice.GetFlightDetailsByIata(id);
             return Ok(flightDetails);
         }
 
+        /// <summary>
+        /// Gets all waypoints of flight.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
         [HttpGet("{id}/track")]
-        public IActionResult GetAllWaypointsOfFlight(string id)
+        public async Task<IActionResult> GetAllWaypointsOfFlight([FromRoute] string id)
         {
-            var wayPoints = _flightservice.getAllWaypointsOfFlight(id);
+            var wayPoints = await _flightservice.GetAllWaypointsOfFlight(id);
             return Ok(wayPoints);
         }
 
@@ -35,7 +55,7 @@ namespace Aerothon.Controllers
         /// <param name="wayPoints">way points</param>
         /// <returns>Alternate paths</returns>
         [HttpGet("paths")]
-        public IActionResult GetAlternatePaths([FromBody]List<Waypoint> wayPoints)
+        public IActionResult GetAlternatePaths([FromBody] List<Waypoint> wayPoints)
         {
             var result = _flightservice.GetAlternatePaths(wayPoints[0], wayPoints[1]);
             return Ok(result);

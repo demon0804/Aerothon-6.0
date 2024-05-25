@@ -5,19 +5,8 @@ namespace Aerothon.Services.Interfaces
 {
     public interface IFlightService
     {
-        /// <summary>
-        /// Get flight details
-        /// </summary>
-        /// <param name="flightId"></param>
-        /// <returns>flight response</returns>
-        FlightResponse getFlightDetailsById(string flightId);
-
-        /// <summary>
-        /// Get all way points of flight
-        /// </summary>
-        /// <param name="flightId"></param>
-        /// <returns>list of waypoints</returns>
-        List<WaypointResponse> getAllWaypointsOfFlight(string flightId);
+        Task<FlightResponse> GetFlightDetailsByIata(string flightIata);
+        Task<List<WaypointResponse>> GetAllWaypointsOfFlight(string flightIata);
 
         /// <summary>
         /// Get alternate paths
