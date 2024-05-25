@@ -1,5 +1,6 @@
-import React from "react";
 import "./LoadingPage.css";
+
+import React from "react";
 
 function LoadingPage() {
   return (

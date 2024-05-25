@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
 import "./Flightdetails.css";
+
+import React, { useEffect, useState } from "react";
+import { getFlightPath, getNewFlightPath } from "../Services/FlightServices";
 import { useLocation, useNavigate } from "react-router-dom";
-import WbTwilightIcon from "@mui/icons-material/WbTwilight";
+
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import PublicIcon from "@mui/icons-material/Public";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import ArrowForwardSharpIcon from "@mui/icons-material/ArrowForwardSharp";
-import FlightTakeoffSharpIcon from "@mui/icons-material/FlightTakeoffSharp";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import FlightLandSharpIcon from "@mui/icons-material/FlightLandSharp";
+import FlightTakeoffSharpIcon from "@mui/icons-material/FlightTakeoffSharp";
+import LoadingPage from "./LoadingPage";
+import PublicIcon from "@mui/icons-material/Public";
+import WbTwilightIcon from "@mui/icons-material/WbTwilight";
 import Weatherdetails from "./Weatherdetails";
 import getFormattedWeatherdata from "../Services/Weatherservices";
-import LoadingPage from "./LoadingPage";
-import { getFlightPath, getNewFlightPath } from "../Services/FlightServices";
 
 function Flightdetails() {
   const location = useLocation();
@@ -381,14 +383,16 @@ function Flightdetails() {
             <div className="waypoints">
               <h4 color="black">Alternate route </h4>
 
-              {newPath.map((currpath,index) => (
+              {newPath.map((currpath, index) => (
                 <div className="boxes">
                   <React.Fragment key={index}>
                     {currpath.map((coord, ind) => (
                       <React.Fragment key={coord.ind}>
                         <div
                           className="wps"
-                          onClick={() => getdata(coord.latitude, coord.longitude)}
+                          onClick={() =>
+                            getdata(coord.latitude, coord.longitude)
+                          }
                         >
                           <img src="plane2.jpg" alt="" />
                           <div className="lat-lon">
@@ -428,7 +432,7 @@ function Flightdetails() {
             <div className="waypoints">
               <h4 color="black">Shortest Alternate Route</h4>
               <div className="boxes">
-                {newPath[0].map((coord,index) => {
+                {newPath[0].map((coord, index) => {
                   return (
                     <>
                       <div

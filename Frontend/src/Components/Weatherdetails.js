@@ -1,14 +1,15 @@
-import React from "react";
 import "./Weatherdetails.css";
-import { UilTemperature, UilTear, UilWind } from "@iconscout/react-unicons";
+
+import { UilTear, UilTemperature, UilWind } from "@iconscout/react-unicons";
+
 import CompressOutlinedIcon from "@mui/icons-material/CompressOutlined";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import React from "react";
 import StormSharpIcon from "@mui/icons-material/StormSharp";
 import ThermostatSharpIcon from "@mui/icons-material/ThermostatSharp";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { iconUrlFromCode } from "../Services/Weatherservices";
 
 function Weatherdetails({ weather, status, topic }) {
-
   return (
     <div className="weatherdetails">
       <h2>{topic}</h2>

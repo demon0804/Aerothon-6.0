@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import WbTwilightIcon from "@mui/icons-material/WbTwilight";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import PublicIcon from "@mui/icons-material/Public";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./Landing.css";
+
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import PublicIcon from "@mui/icons-material/Public";
 import Searched from "./Searched";
+import WbTwilightIcon from "@mui/icons-material/WbTwilight";
 import { getFlight } from "../Services/FlightServices";
 
 function Landing() {
@@ -22,8 +24,8 @@ function Landing() {
 
   const getTime = (isoString) => {
     const date = new Date(isoString);
-    const hours = date.getUTCHours().toString().padStart(2, '0'); // Get hours in UTC and pad with leading zero if necessary
-    const minutes = date.getUTCMinutes().toString().padStart(2, '0'); // Get minutes in UTC and pad with leading zero if necessary
+    const hours = date.getUTCHours().toString().padStart(2, "0"); // Get hours in UTC and pad with leading zero if necessary
+    const minutes = date.getUTCMinutes().toString().padStart(2, "0"); // Get minutes in UTC and pad with leading zero if necessary
     return `${hours}:${minutes}`;
   };
 
@@ -38,7 +40,6 @@ function Landing() {
   };
 
   const Searchflight = async () => {
-
     try {
       const flightData = await getFlight(flight);
       console.log(flightData);
@@ -48,7 +49,7 @@ function Landing() {
       setLat(flightData?.lastPosition.lattitude);
       setLon(flightData?.lastPosition.longitude);
       // setDeparture(flightData?.source.scheduled);
-      setDeparture(getTime(flightData?.source.scheduled))
+      setDeparture(getTime(flightData?.source.scheduled));
     } catch (error) {
       console.error("Error Fetching Flight", error);
       alert("Error Fetching Flight", error);

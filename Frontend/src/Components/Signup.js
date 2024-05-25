@@ -1,8 +1,10 @@
-import React, { useState } from "react";
 import "./Signup.css";
-import { useNavigate } from "react-router-dom";
+
+import React, { useState } from "react";
+
 import ArrowBackSharpIcon from "@mui/icons-material/ArrowBackSharp";
 import { createUser } from "../Services/AuthServices";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const navigate = useNavigate();

@@ -19,6 +19,7 @@
   color: #000;
   opacity: 0.9;
 }
+
 input {
   background: transparent;
   color: #000;
@@ -33,9 +34,11 @@ input {
   color: #000000;
   background-color: #ffffff;
 }
+
 div.text {
   padding-top: 5%;
 }
+
 .login-btns {
   padding-top: 10%;
   margin-left: 30%;
@@ -44,6 +47,7 @@ div.text {
   width: 50%;
   cursor: pointer;
 }
+
 .login-btns p {
   margin-left: 20px;
 }

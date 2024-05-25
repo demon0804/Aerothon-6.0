@@ -1,7 +1,8 @@
-import React from "react";
-import ConnectingAirportsOutlinedIcon from "@mui/icons-material/ConnectingAirportsOutlined";
-import { useNavigate } from "react-router-dom";
 import "./Searched.css";
+
+import ConnectingAirportsOutlinedIcon from "@mui/icons-material/ConnectingAirportsOutlined";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Searched({
   name,
