@@ -4,12 +4,12 @@ using Newtonsoft.Json;
 namespace Aerothon.Helper
 {
     /// <summary>
-    /// WaypointHelper
+    /// WaypointCalculatorHelper
     /// </summary>
-    /// <seealso cref="Aerothon.Helper.IWaypointHelper" />
-    public class WaypointHelper : IWaypointHelper
+    /// <seealso cref="Aerothon.Helper.IWaypointCalculatorHelper" />
+    public class WaypointCalculatorHelper : IWaypointCalculatorHelper
     {
-        public WaypointHelper() { }
+        public WaypointCalculatorHelper() { }
 
         /// <summary>
         /// Calculates the great circle path.

@@ -3,9 +3,9 @@
 namespace Aerothon.Helper
 {
     /// <summary>
-    /// IWaypointHelper
+    /// IWaypointCalculatorHelper
     /// </summary>
-    public interface IWaypointHelper
+    public interface IWaypointCalculatorHelper
     {
         /// <summary>
         /// Calculates the great circle path.

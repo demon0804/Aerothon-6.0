@@ -45,7 +45,7 @@ namespace Aerothon
             services.AddSingleton<IFlightRepository, FlightRepository>();
             services.AddSingleton<IFlightService, FlightService>();
             services.AddSingleton<IWeatherHelper, WeatherHelper>();
-            services.AddSingleton<IWaypointHelper, WaypointHelper>();
+            services.AddSingleton<IWaypointCalculatorHelper, WaypointCalculatorHelper>();
 
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IUserRepository, UserRepository>();

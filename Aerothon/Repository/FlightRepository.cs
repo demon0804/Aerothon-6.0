@@ -16,16 +16,19 @@ namespace Aerothon.Repository
         /// The weather helper
         /// </summary>
         private readonly IWeatherHelper _weatherHelper;
-        private readonly IWaypointHelper _waypointHelper;
+        private readonly IWaypointCalculatorHelper _WaypointCalculatorHelper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FlightRepository"/> class.
         /// </summary>
         /// <param name="weatherHelper">The weather helper.</param>
-        public FlightRepository(IWeatherHelper weatherHelper, IWaypointHelper waypointHelper)
+        public FlightRepository(
+            IWeatherHelper weatherHelper,
+            IWaypointCalculatorHelper WaypointCalculatorHelper
+        )
         {
             _weatherHelper = weatherHelper;
-            _waypointHelper = waypointHelper;
+            _WaypointCalculatorHelper = WaypointCalculatorHelper;
         }
 
         /// <summary>
@@ -72,7 +75,9 @@ namespace Aerothon.Repository
                 else
                 {
                     string airport = responseJson.data[0].departure.airport;
-                    Waypoint coordinates = await _waypointHelper.GetCoordinatesByAirport(airport);
+                    Waypoint coordinates = await _WaypointCalculatorHelper.GetCoordinatesByAirport(
+                        airport
+                    );
                     flightDetails.LastPosition = new Waypoint
                     {
                         Latitude = coordinates.Latitude,
@@ -119,15 +124,15 @@ namespace Aerothon.Repository
             }
 
             //Extract source and destination waypoints from flight details
-            var source = await _waypointHelper.GetCoordinatesByAirport(
+            var source = await _WaypointCalculatorHelper.GetCoordinatesByAirport(
                 flightDetails.Source.Airport
             );
-            var destination = await _waypointHelper.GetCoordinatesByAirport(
+            var destination = await _WaypointCalculatorHelper.GetCoordinatesByAirport(
                 flightDetails.Destination.Airport
             );
 
             // Calculate waypoints along the great circle path
-            var waypoints = _waypointHelper.CalculateWayPoints(source, destination);
+            var waypoints = _WaypointCalculatorHelper.CalculateWayPoints(source, destination);
 
             // Optionally, enrich waypoints with weather data
             foreach (var waypoint in waypoints)
