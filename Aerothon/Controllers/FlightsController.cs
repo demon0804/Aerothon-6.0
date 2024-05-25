@@ -35,9 +35,21 @@ namespace Aerothon.Controllers
         /// <param name="wayPoints">way points</param>
         /// <returns>Alternate paths</returns>
         [HttpGet("paths")]
-        public IActionResult GetAlternatePaths([FromBody]List<Waypoint> wayPoints)
+        public IActionResult GetAlternatePaths([FromQuery]float sourceLat, [FromQuery] float sourceLong, [FromQuery]  float destinationLat, [FromQuery] float destinationLong)
         {
-            var result = _flightservice.GetAlternatePaths(wayPoints[0], wayPoints[1]);
+            var source = new Waypoint()
+            {
+                Lattitude = sourceLat,
+                Longitude = sourceLong
+            };
+
+            var destination = new Waypoint()
+            {
+                Lattitude = destinationLat,
+                Longitude = destinationLong
+            };
+
+            var result = _flightservice.GetAlternatePaths(source, destination);
             return Ok(result);
         }
     }
